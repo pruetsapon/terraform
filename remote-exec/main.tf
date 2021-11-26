@@ -8,6 +8,9 @@ resource "null_resource" "shell" {
       "cat <<EOF > /$HOME/test.txt",
       "test",
       "EOF",
+      # configure selinux as permissive
+      "sudo setenforce 0",
+      "sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config",
     ]
     connection {
       type = "ssh"
